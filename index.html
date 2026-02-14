@@ -38,7 +38,7 @@ header a:hover { color: white; }
 
 /* ===== SECTION ===== */
 .section {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -46,9 +46,10 @@ header a:hover { color: white; }
     font-size: 60px;
     text-align: center;
     text-transform: uppercase;
+    padding: 20px;
 }
 
-/* ===== HERO (1-ին նկար) ===== */
+/* ===== HERO ===== */
 .hero {
     background:
     linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
@@ -63,21 +64,6 @@ header a:hover { color: white; }
     margin-top: 15px;
 }
 
-/* ===== GAMES (2-րդ նկար) ===== */
-.games {
-    background:
-    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-    url("https://media.gtaboom.com/variants/1600/media/images/bf/8d/Rockstar-games-gta-6-website-update-2.avif") center/cover no-repeat;
-}
-
-/* ===== NEWS (3-րդ նկար) ===== */
-.news {
-    background:
-    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-    url("https://ss.sport-express.net/userfiles/materials/216/2165257/720x405.jpg") center/cover no-repeat;
-}
-
-/* ===== BUTTON ===== */
 .hero button {
     margin-top: 30px;
     padding: 15px 40px;
@@ -89,6 +75,54 @@ header a:hover { color: white; }
 }
 
 .hero button:hover { background: white; }
+
+/* ===== GAMES ===== */
+.games {
+    background:
+    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    url("https://media.gtaboom.com/variants/1600/media/images/bf/8d/Rockstar-games-gta-6-website-update-2.avif") center/cover no-repeat;
+}
+
+/* ===== SLIDER ===== */
+.slider {
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+    margin-top: 40px;
+}
+
+.slider img {
+    width: 100%;
+    height: auto;
+    border: 3px solid #FFD700;
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.7);
+    color: #FFD700;
+    border: none;
+    font-size: 30px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+.prev:hover, .next:hover {
+    background: #FFD700;
+    color: black;
+}
+
+/* ===== NEWS ===== */
+.news {
+    background:
+    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    url("https://ss.sport-express.net/userfiles/materials/216/2165257/720x405.jpg") center/cover no-repeat;
+}
 
 /* ===== SIGNUP ===== */
 .signup-btn {
@@ -130,22 +164,15 @@ header a:hover { color: white; }
     font-weight: bold;
 }
 
+/* ===== FOOTER ===== */
 footer {
     background: black;
     text-align: center;
     padding: 30px;
     color: #FFD700;
 }
-.fade-in {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: 1s;
-}
 
-.fade-in.show {
-    opacity: 1;
-    transform: translateY(0);
-}
+/* ===== ANIMATION ===== */
 .fade-in {
     opacity: 0;
     transform: translateY(40px);
@@ -176,15 +203,25 @@ footer {
     </button>
 </div>
 
-
 <div id="games" class="section games fade-in">
-    <span style="color:#ffc800;">OUR GAMES</span>
+<span style="color:#ffc800;">OUR GAMES</span>
+
+<div class="slider">
+    <button class="prev" onclick="changeSlide(-1)">❮</button>
+
+    <!-- Սկզբի նկար -->
+<img id="sliderImage" src="AYSTEH_DNEL_LINK_1">
+
+    <button class="next" onclick="changeSlide(1)">❯</button>
 </div>
+
+</div>
+
 <div id="news" class="section news fade-in">
     <h2 style="color:#FFD700;">LATEST NEWS</h2>
 
     <a href="https://www.youtube.com/watch?v=QdBZY2fkU-0" target="_blank">
-        <img src="https://img.youtube.com/vi/QdBZY2fkU-0/maxresdefault.jpg" 
+        <img src="https://img.youtube.com/vi/QdBZY2fkU-0/maxresdefault.jpg"
         style="width:600px; margin-top:30px; border:3px solid #FFD700; cursor:pointer;">
     </a>
 
@@ -207,44 +244,45 @@ footer {
 </div>
 
 <script>
+var images = [
+    "https://alfabetajuega.com/hero/2025/08/rdr3.jpg?width=1200&aspect_ratio=16:9",
+    "https://cdn.forbes.ru/forbes-static/c/1216x762/new/2024/02/71d4d17edcd49703a5ea446cc0e588e6-65cb13331c4fd.webp",
+    "https://rockstaractu.com/wp-content/uploads/2020/06/Banniere-darticles-GTA-5-Image-11-1280p-x-720p-Rockstar-Actu-GTA-V.jpg",
+    "https://hb.imgix.net/2785a030e82a42bbfef249108ce34277116f924c.jpeg?auto=compress,format&fit=crop&h=353&w=616&s=70de86264346438b2d0a92f19b132715"
+];
+
+var current = 0;
+
+function changeSlide(direction) {
+    current += direction;
+
+    if (current >= images.length) {
+        current = 0;
+    }
+
+    if (current < 0) {
+        current = images.length - 1;
+    }
+
+    document.getElementById("sliderImage").src = images[current];
+}
+
 function toggleForm() {
     var form = document.getElementById("signupForm");
-    if (form.style.display === "block") {
-        form.style.display = "none";
-    } else {
-        form.style.display = "block";
-    }
+    form.style.display = (form.style.display === "block") ? "none" : "block";
 }
-</script>
-<script>
-    window.addEventListener("scroll", function() {
-        var elements = document.querySelectorAll(".fade-in");
-    
-        elements.forEach(function(el) {
-            var position = el.getBoundingClientRect().top;
-            var screenPosition = window.innerHeight / 1.2;
-    
-            if(position < screenPosition) {
-                el.classList.add("show");
-            }
-        });
+
+window.addEventListener("scroll", function() {
+    var elements = document.querySelectorAll(".fade-in");
+    elements.forEach(function(el) {
+        var position = el.getBoundingClientRect().top;
+        var screenPosition = window.innerHeight / 1.2;
+        if(position < screenPosition) {
+            el.classList.add("show");
+        }
     });
-    </script>
-    
-    <script>
-        window.addEventListener("scroll", function() {
-            var elements = document.querySelectorAll(".fade-in");
-        
-            elements.forEach(function(el) {
-                var position = el.getBoundingClientRect().top;
-                var screenPosition = window.innerHeight / 1.2;
-        
-                if(position < screenPosition) {
-                    el.classList.add("show");
-                }
-            });
-        });
-        </script>
-        
+});
+</script>
+
 </body>
 </html>
